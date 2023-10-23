@@ -1,0 +1,43 @@
+﻿@model xchedulerDBFinalDraft.Models.Booking
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Booking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ratings)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ratings)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Avg_Booking)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Avg_Booking)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppoinmentDetail.AppoinmentStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppoinmentDetail.AppoinmentStatus)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RatingId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

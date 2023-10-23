@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "LoggedIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="centered-heading">@ViewBag.WelcomeMessage</h2>
+
+<body>
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Centers</h2>
+            <p>
+                @if (User.IsInRole("admin"))
+                {
+                    <a href="@Url.Action("Create", "CenterDetails")" class="btn btn-primary mr-5">Create Center</a>
+
+                }
+                <a href="@Url.Action("Index", "CenterDetails")" class="btn btn-danger"> More Center Details</a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Appoinments</h2>
+            <p>
+
+                @if (User.IsInRole("doctor"))
+                {
+                    <a href="@Url.Action("Create", "AppoinmentDetails")" class="btn btn-primary mr-5">Book an Appoinment</a>
+                }
+                @if (User.IsInRole("patient"))
+                {
+                    <a href="@Url.Action("PatientCreate", "AppoinmentDetails")" class="btn btn-primary mr-5">Book an Appoinment</a>
+
+                }
+                @if (User.IsInRole("patient"))
+                {
+                    <a href="@Url.Action("PatientIndex", "AppoinmentDetails")" class="btn btn-danger"> More Appoinment Details</a>
+                }
+                @if (User.IsInRole("doctor") || User.IsInRole("admin"))
+                {
+                    <a href="@Url.Action("Index", "AppoinmentDetails")" class="btn btn-danger"> More Appoinment Details</a>
+                }
+            </p>
+        </div>
+        <div class="col-md-4">
+            @if (User.IsInRole("admin") || User.IsInRole("doctor"))
+            {
+                <h2>Email Users</h2>
+                <p>
+                    <a href="@Url.Action("SendEmail", "Email")" class="btn btn-primary mr-5">Send Email</a>
+                </p>
+            }
+        </div>
+    </div>
+</body>
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<script src="~/Scripts/notify.min.js" defer></script>
+<script>
+    $(document).ready(function () {
+        var welcomeMessage = '@Html.Raw(ViewBag.WelcomeMessage)';
+        $.notify(welcomeMessage, "success");
+    });
+</script>

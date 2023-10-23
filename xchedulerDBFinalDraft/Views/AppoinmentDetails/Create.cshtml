@@ -1,0 +1,149 @@
+﻿@model xchedulerDBFinalDraft.Models.AppoinmentDetail
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>AppoinmentDetail</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AppoinmentDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group date">
+                    @Html.TextBoxFor(model => model.AppoinmentDate, new { @class = "form-control datepicker", placeholder = "Select date" })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                @Html.ValidationMessageFor(model => model.AppoinmentDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AppoinmentTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group date">
+                    @Html.TextBoxFor(model => model.AppoinmentTime, new { @class = "form-control timepicker", placeholder = "Select time" })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+                @Html.ValidationMessageFor(model => model.AppoinmentTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AppoinmentEndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group date">
+                    @Html.TextBoxFor(model => model.AppoinmentEndTime, new { @class = "form-control timepicker", placeholder = "Select end time", disabled = "disabled" })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                </div>
+                @Html.ValidationMessageFor(model => model.AppoinmentEndTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AppoinmentStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AppoinmentStatus, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AppoinmentStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PatientID, "PatientID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PatientID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PatientID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReportStaffID, "ReportStaffID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ReportStaffID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ReportStaffID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CenterID, "CenterID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CenterID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CenterID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @if (User.IsInRole("patient"))
+    {
+        @Html.ActionLink("Back to List", "PatientIndex")
+    }
+    @if (User.IsInRole("doctor") || User.IsInRole("admin"))
+    {
+        @Html.ActionLink("Back to List", "Index")
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+
+    <script>
+        $(function () {
+            // Initialize Datepicker
+            $(".datepicker").datetimepicker({
+                format: 'YYYY-MM-DD',
+            });
+
+            // Initialize Timepicker for AppoinmentTime
+            $(".timepicker").datetimepicker({
+                format: 'HH:mm',
+            });
+
+            // Automatically set AppoinmentEndTime when AppoinmentTime or AppoinmentDate changes
+            $(".timepicker[name='AppoinmentTime'], .datepicker[name='AppoinmentDate']").on("dp.change", function (e) {
+                var selectedDate = moment($('.datepicker[name="AppoinmentDate"]').val());
+                var selectedTime = moment($('.timepicker[name="AppoinmentTime"]').val(), 'HH:mm');
+                var startTime = selectedDate.set({ 'hour': selectedTime.hour(), 'minute': selectedTime.minute() });
+                var endTime = startTime.clone().add(2, 'hours');
+                $('.form-horizontal .form-group input[name="AppoinmentEndTime"]').val(endTime.format('HH:mm'));
+            });
+
+            // Disable input for AppoinmentEndTime
+            $('.form-horizontal .form-group input[name="AppoinmentEndTime"]').prop('disabled', true);
+        });
+    </script>
+}

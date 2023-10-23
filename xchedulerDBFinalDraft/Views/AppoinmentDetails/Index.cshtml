@@ -1,0 +1,84 @@
+﻿@model IEnumerable<xchedulerDBFinalDraft.Models.AppoinmentDetail>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Appoinment Details</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AppoinmentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppoinmentTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppoinmentStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AspNetUser.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CenterDetail.CenterLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AspNetUser1.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppoinmentDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppoinmentTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppoinmentStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CenterDetail.CenterLocation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AspNetUser1.Email)
+                </td>
+                <td>
+                    @if (User.IsInRole("patient") || User.IsInRole("doctor"))
+                    {
+                        <div class="btn-group">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.AppoinmentId }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.AppoinmentId }, new { @class = "btn btn-danger" })
+                        </div>
+                    }
+                    @Html.ActionLink("Details", "Details", new { id = item.AppoinmentId }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@section Scripts {
+
+    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    <script>
+ $(document).ready(function () {
+ $('.table').DataTable();
+ });
+    </script>
+}
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css"
+      rel="stylesheet" />

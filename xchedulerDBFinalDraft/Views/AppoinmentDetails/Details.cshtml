@@ -1,0 +1,89 @@
+﻿@model xchedulerDBFinalDraft.Models.AppoinmentDetail
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AppoinmentDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AppoinmentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppoinmentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppoinmentTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppoinmentTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppoinmentEndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppoinmentEndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppoinmentStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppoinmentStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CenterDetail.CenterLocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CenterDetail.CenterLocation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser1.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser1.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AppoinmentId }) |
+    @if (User.IsInRole("patient"))
+    {
+        @Html.ActionLink("Back to List", "PatientIndex")
+    }
+    @if (User.IsInRole("doctor") || User.IsInRole("admin"))
+    {
+        @Html.ActionLink("Back to List", "Index")
+    }
+</p>
+
