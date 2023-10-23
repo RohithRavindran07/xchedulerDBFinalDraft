@@ -39,7 +39,7 @@ namespace xchedulerDBFinalDraft.Controllers
         // GET: Bookings/Create
         public ActionResult Create()
         {
-            ViewBag.AppoinmentId = new SelectList(db.AppoinmentDetails, "AppoinmentId", "AppoinmentStatus");
+            ViewBag.AppoinmentId = new SelectList(db.AppoinmentDetails, "AppoinmentId", "AppoinmentId");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace xchedulerDBFinalDraft.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AppoinmentId = new SelectList(db.AppoinmentDetails, "AppoinmentId", "AppoinmentStatus", booking.AppoinmentId);
+            ViewBag.AppoinmentId = new SelectList(db.AppoinmentDetails, "AppoinmentId", "AppoinmentId", booking.AppoinmentId);
             return View(booking);
         }
 
@@ -73,7 +73,7 @@ namespace xchedulerDBFinalDraft.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AppoinmentId = new SelectList(db.AppoinmentDetails, "AppoinmentId", "AppoinmentStatus", booking.AppoinmentId);
+            ViewBag.AppoinmentId = new SelectList(db.AppoinmentDetails, "AppoinmentId", "AppoinmentId", booking.AppoinmentId);
             return View(booking);
         }
 
@@ -90,7 +90,7 @@ namespace xchedulerDBFinalDraft.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AppoinmentId = new SelectList(db.AppoinmentDetails, "AppoinmentId", "AppoinmentStatus", booking.AppoinmentId);
+            ViewBag.AppoinmentId = new SelectList(db.AppoinmentDetails, "AppoinmentId", "AppoinmentId", booking.AppoinmentId);
             return View(booking);
         }
 

@@ -19,7 +19,7 @@
             @Html.DisplayNameFor(model => model.Avg_Booking)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AppoinmentDetail.AppoinmentStatus)
+            @Html.DisplayNameFor(model => model.AppoinmentDetail.AppoinmentId)
         </th>
         <th></th>
     </tr>
@@ -33,7 +33,7 @@
             @Html.DisplayFor(modelItem => item.Avg_Booking)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AppoinmentDetail.AppoinmentStatus)
+            @Html.DisplayFor(modelItem => item.AppoinmentDetail.AppoinmentId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RatingId }) |
