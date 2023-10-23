@@ -50,6 +50,27 @@
                 </p>
             }
         </div>
+        <div class="col-md-4">
+            @if(User.IsInRole("patient"))
+            {
+                <h2>
+                    Rate Your Experience
+                </h2>
+                <p>
+                    <a href="@Url.Action("Create", "Bookings")" class="btn btn-info mr-5">Give Your Booking Experience</a>
+                </p>
+            }
+
+            @if(User.IsInRole("admin"))
+            {
+                <h2>
+                    See Rating Details
+                </h2>
+                <p>
+                    <a href="@Url.Action("Index", "Bookings")" class="btn btn-info mr-5">Get Experience Info</a>
+                </p>
+            }
+        </div>
     </div>
 </body>
 

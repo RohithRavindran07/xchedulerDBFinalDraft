@@ -7,16 +7,13 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Ratings)
+            Ratings
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Avg_Booking)
+            Avg Rating
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AppoinmentDetail.AppoinmentId)
@@ -24,23 +21,45 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ratings)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Avg_Booking)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AppoinmentDetail.AppoinmentId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RatingId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RatingId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RatingId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <div class="rating">
+                    @for (var i = 1; i <= item.Ratings; i++)
+                    {
+                        <span>★</span>
+                    }
+                    @for (var i = item.Ratings + 1; i <= 5; i++)
+                    {
+                        <span>☆</span>
+                    }
+                </div>
+            </td>
+            <td>
+                <div class="rating">
+                    @{
+                        var fullStars = (int)item.Avg_Booking; // Whole stars
+                        var halfStar = item.Avg_Booking - fullStars; // Decimal portion
+                    }
+                    @for (var i = 1; i <= fullStars; i++)
+                    {
+                        <span>★</span>
+                    }
+                    @if (halfStar > 0)
+                    {
+                        <span>½</span> <!-- Display a half star if there's a decimal portion -->
+                    }
+                    @for (var i = fullStars + 2; i <= 5; i++)
+                    {
+                        <span>☆</span>
+                    }
+                </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppoinmentDetail.AppoinmentId)
+            </td>
+        </tr>
+    }
 
 </table>
