@@ -5,6 +5,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    /* Define star styles */
+    .rating {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+        text-align: left;
+    }
+
+        .rating > span {
+            display: inline-block;
+            position: relative;
+            width: 1.1em;
+            font-size: 24px; /* Increase the star size for better visibility */
+            cursor: pointer; /* Change cursor to pointer for interactivity */
+        }
+
+            .rating > span:hover:before,
+            .rating > span:hover ~ span:before {
+                content: "\2605";
+                position: absolute;
+            }
+</style>
+
 <h2>Create</h2>
 
 @using (Html.BeginForm())
@@ -27,8 +50,16 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Ratings, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input id="Ratings" name="Ratings" type="number" class="rating" min="0" max="5" step="1" data-size="sm">
+                <div class="rating" id="starRating">
+                    <span data-rating="5">☆</span>
+                    <span data-rating="4">☆</span>
+                    <span data-rating="3">☆</span>
+                    <span data-rating="2">☆</span>
+                    <span data-rating="1">☆</span>
+                </div>
+                @Html.HiddenFor(model => model.Ratings, new { id = "Ratings" })
                 @Html.ValidationMessageFor(model => model.Ratings, "", new { @class = "text-danger" })
+                <input type="text" id="SelectedRating" readonly="readonly" />
             </div>
         </div>
 
@@ -47,15 +78,23 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/bootstrap")
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/css/star-rating.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/js/star-rating.min.js" type="text/javascript"></script>
+    @Scripts.Render("~/bundles jqueryval")
 
     <script>
         $(document).ready(function () {
-            $('#Ratings').rating();
+            $("#starRating span").click(function () {
+                var rating = $(this).data("rating");
+                $("#Ratings").val(rating); // Save rating as a whole number
+                $("#SelectedRating").val(rating + (rating === 1 ? " star" : " stars"));
+
+                // Remove previous star ratings
+                $("#starRating span").each(function () {
+                    $(this).text("☆");
+                });
+
+                // Highlight selected stars
+                $(this).prevAll("span").andSelf().text("★");
+            });
         });
     </script>
 }
