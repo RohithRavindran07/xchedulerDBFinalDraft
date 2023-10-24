@@ -179,6 +179,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppoinmentDetailsController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
+    <Compile Include="Controllers\BulkController.cs" />
     <Compile Include="Controllers\CenterDetailsController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -573,6 +574,7 @@
     <Content Include="Views\Bookings\Index.cshtml" />
     <Content Include="Views\Account\LoggedIn.cshtml" />
     <Content Include="Views\Email\SendEmail.cshtml" />
+    <Content Include="Views\Bulk\BulkEmail.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
