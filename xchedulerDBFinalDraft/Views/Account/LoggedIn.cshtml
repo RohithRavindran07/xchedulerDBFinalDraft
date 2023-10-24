@@ -49,6 +49,11 @@
                     <a href="@Url.Action("SendEmail", "Email")" class="btn btn-primary mr-5">Send Email</a>
                 </p>
             }
+
+            @if (User.IsInRole("admin"))
+            {
+                <a href="@Url.Action("BulkEmail", "Bulk")" class="btn btn-danger"> Bulk Email</a>
+            }
         </div>
         <div class="col-md-4">
             @if(User.IsInRole("patient"))
@@ -68,6 +73,9 @@
                 </h2>
                 <p>
                     <a href="@Url.Action("Index", "Bookings")" class="btn btn-info mr-5">Get Experience Info</a>
+                   
+                    <a href="@Url.Action("AppointmentChart", "AppoinmentDetails")" class="btn btn-danger">Appoinment Chart</a>
+                    
                 </p>
             }
         </div>
