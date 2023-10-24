@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div id="map" style="height:300px"></div>
+
 <table class="table">
     <thead>
         <tr>
@@ -27,17 +29,17 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
+            <tr class="coordinates">
+                <td class="description">
                     @Html.DisplayFor(modelItem => item.CenterLocation)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Suburb)
                 </td>
-                <td>
+                <td class="latitude">
                     @Html.DisplayFor(modelItem => item.Latitude)
                 </td>
-                <td>
+                <td class="longitude">
                     @Html.DisplayFor(modelItem => item.Longitude)
                 </td>
                 <td>
@@ -59,10 +61,11 @@
 
     @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
     @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    @Scripts.Render("~/bundles/mapbox")
     <script>
- $(document).ready(function () {
- $('.table').DataTable();
- });
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
     </script>
 }
 <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css"

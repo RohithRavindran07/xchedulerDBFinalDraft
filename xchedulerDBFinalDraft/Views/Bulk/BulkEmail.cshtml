@@ -9,6 +9,10 @@
     @using (Html.BeginForm("BulkEmail", "Bulk", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="form-group">
+            @Html.Label("User Email Addresses:")
+            <p>@string.Join(", ", ViewBag.UserEmails)</p>
+        </div>
+        <div class="form-group">
             @Html.Label("Recipient Email Addresses (comma-separated):")
             @Html.TextArea("RecipientEmails", null, new { @class = "form-control" })
         </div>

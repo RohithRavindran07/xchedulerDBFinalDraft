@@ -18,6 +18,9 @@ namespace xchedulerDBFinalDraft
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
+            // I added the location.js to the bundle called mapbox. 
+            bundles.Add(new ScriptBundle("~/bundles/mapbox").Include(
+            "~/Scripts/location.js"));
 
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));

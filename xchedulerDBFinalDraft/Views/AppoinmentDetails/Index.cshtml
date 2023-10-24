@@ -5,8 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Appoinment Details</h2>
+<h2>Appointment Details</h2>
 
+<div>
+    <button id="export-jpeg" class="btn btn-primary">Export to JPEG</button>
+    <button id="export-excel" class a="btn btn-primary">Export to Excel</button>
+</div>
 
 <table class="table">
     <thead>
@@ -33,7 +37,6 @@
         </tr>
     </thead>
     <tbody>
-
         @foreach (var item in Model)
         {
             <tr>
@@ -68,17 +71,35 @@
             </tr>
         }
     </tbody>
-
 </table>
-@section Scripts {
 
+@section Scripts {
     @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
     @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    <script src="https://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
     <script>
- $(document).ready(function () {
- $('.table').DataTable();
- });
+        $(document).ready(function () {
+            $('.table').DataTable();
+
+            $('#export-excel').click(function () {
+                $('.table').table2excel({
+                    name: 'TableData',
+                    filename: 'table-export',
+                    fileext: '.xls'
+                });
+            });
+
+            $('#export-jpeg').click(function () {
+                html2canvas(document.querySelector('.table')).then(function (canvas) {
+                    var img = canvas.toDataURL('image/jpeg');
+                    var link = document.createElement('a');
+                    link.href = img;
+                    link.download = 'table-export.jpeg';
+                    link.click();
+                });
+            });
+        });
     </script>
 }
-<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css"
-      rel="stylesheet" />
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
