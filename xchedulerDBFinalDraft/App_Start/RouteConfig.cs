@@ -17,6 +17,11 @@ namespace xchedulerDBFinalDraft
                 url: "Account/LoggedIn",
                 defaults: new { controller = "Account", action = "LoggedIn" }
             );
+            routes.MapRoute(
+                 name: "AppointmentChart",
+                 url: "AppoinmentDetails/AppointmentChart",
+                defaults: new { controller = "AppoinmentDetails", action = "AppointmentChart" }
+                );
 
 
             routes.MapRoute(

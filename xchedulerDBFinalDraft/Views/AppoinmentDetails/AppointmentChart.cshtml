@@ -1,0 +1,54 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "AppointmentChart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AppointmentChart</h2>
+
+<canvas id="appointmentChart" width="400" height="200"></canvas>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var chartData = @Html.Raw(Json.Encode(Model));
+
+        var ctx = document.getElementById("appointmentChart").getContext("2d");
+
+        new Chart(ctx, {
+            type: "bar", // Use "bar" for a bar chart
+            data: {
+                labels: chartData.labels,
+                datasets: [{
+                    label: "Appointments",
+                    data: chartData.data,
+                    backgroundColor: "rgba(54, 162, 235, 0.2)",
+                    borderColor: "rgba(54, 162, 235, 1)",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: [{
+                        type: "time",
+                        time: {
+                            unit: "day",
+                            displayFormats: {
+                                day: "YYYY-MM-DD"
+                            }
+                        },
+                        ticks: {
+                            source: "labels"
+                        }
+                    }],
+                    y: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+}

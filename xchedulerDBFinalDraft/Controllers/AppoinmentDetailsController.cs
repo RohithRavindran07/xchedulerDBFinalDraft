@@ -227,6 +227,30 @@ namespace xchedulerDBFinalDraft.Controllers
             return View(appoinmentDetail);
         }
 
+        // GET: AppoinmentDetails/AppointmentChart
+        public ActionResult AppointmentChart()
+        {
+            var appointmentCounts = db.AppoinmentDetails
+                .GroupBy(a => a.AppoinmentDate)
+                .Select(g => new
+                {
+                    Date = g.Key,
+                    Count = g.Count()
+                })
+                .OrderBy(a => a.Date)
+                .ToList();
+
+            // Convert the data to JSON
+            var chartData = new
+            {
+                labels = appointmentCounts.Select(a => a.Date.ToString("yyyy-MM-dd")),
+                data = appointmentCounts.Select(a => a.Count)
+            };
+
+            return View(chartData);
+        }
+
+
         // POST: AppoinmentDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

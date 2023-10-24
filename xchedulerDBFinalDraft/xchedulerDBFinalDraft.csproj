@@ -576,6 +576,7 @@
     <Content Include="Views\Account\LoggedIn.cshtml" />
     <Content Include="Views\Email\SendEmail.cshtml" />
     <Content Include="Views\Bulk\BulkEmail.cshtml" />
+    <Content Include="Views\AppoinmentDetails\AppointmentChart.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
